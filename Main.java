@@ -1,6 +1,7 @@
 import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
 /**
  * Write a description of class Main here.
  * 
@@ -23,6 +24,7 @@ public class Main extends Applet implements ActionListener
     int buttonWidth = 40;
     int buttonHeight = 40;
     boolean b0Displayed = false;
+    boolean isServer = true;
     public void init() {
         startButton = new Button("Start Game");
         add(startButton);
@@ -31,59 +33,61 @@ public class Main extends Applet implements ActionListener
         endButton = new Button("End Game");
         add(endButton);
         endButton.addActionListener(this);
-        
+
         connectButton = new Button("Connect");
         add(connectButton);
         connectButton.addActionListener(this);
-        
+
         turnButton = new Button("Take Turn");
         add(turnButton);
         turnButton.addActionListener(this);
     }
-    
+
     public void paint (Graphics g) {
-      //Draw appropriate titles.
-      g.drawString ("Networked Tic-Tac-Toe!", 135, 75);
-      g.drawString("By Rachel Smith and Scott Rowland", 100, 100);
-      
-      //Draw game board.
-      g.drawLine(175, 125, 175, 300); //vertical left
-      g.drawLine(275, 125, 275, 300); //vertical right
-      g.drawLine(100, 175, 350, 175); //horizontal top
-      g.drawLine(100, 250, 350, 250); //horizontal bottom
-      
-      //Draw buttons on game board appropriately.
-      for (int i = 0; i < board.length; i++){
-          if(board[i] == 0){
-              //draw plain button
-              //if(i==0){
-                  if(!b0Displayed){
-                      b0 = new Button("");
-                      b0.setLocation(xCoords[i], yCoords[i]);
-                      b0.setSize(buttonWidth, buttonHeight);
-                      b0.setBackground(Color.green);
-                      b0Displayed = true;
-                      add(b0);
-                 }
-              //}
-              
-          }
-          else if (board[i] == X_PIECE){
-              //draw X
-              g.drawString("X", xCoords[i], yCoords[i]);
-          }
-          else if (board[i]== O_PIECE){
-              //draw O
-              g.drawString("O", xCoords[i], yCoords[i]);
-          }
-      }
-      
+        //Draw appropriate titles.
+        g.drawString ("Networked Tic-Tac-Toe!", 135, 75);
+        g.drawString("By Rachel Smith and Scott Rowland", 100, 100);
+
+        //Draw game board.
+        g.drawLine(175, 125, 175, 300); //vertical left
+        g.drawLine(275, 125, 275, 300); //vertical right
+        g.drawLine(100, 175, 350, 175); //horizontal top
+        g.drawLine(100, 250, 350, 250); //horizontal bottom
+
+        //Draw buttons on game board appropriately.
+        for (int i = 0; i < board.length; i++){
+            if(board[i] == 0){
+                //draw plain button
+                //if(i==0){
+                if(!b0Displayed){
+                    b0 = new Button("");
+                    b0.setLocation(xCoords[i], yCoords[i]);
+                    b0.setSize(buttonWidth, buttonHeight);
+                    b0.setBackground(Color.green);
+                    b0Displayed = true;
+                    add(b0);
+                }
+                //}
+
+            }
+            else if (board[i] == X_PIECE){
+                //draw X
+                g.drawString("X", xCoords[i], yCoords[i]);
+            }
+            else if (board[i]== O_PIECE){
+                //draw O
+                g.drawString("O", xCoords[i], yCoords[i]);
+            }
+        }
+
     }
-    
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == startButton) 
+        if (e.getSource() == startButton) {
             System.out.println("Start button 1 was pressed");
+            JOptionPane.showMessageDialog(null,new String("Alert!!"));
+            startGame();
+        }
         else if (e.getSource() == connectButton)
             System.out.println("Connect button was pressed.");
         else if (e.getSource() == turnButton)
@@ -92,6 +96,25 @@ public class Main extends Applet implements ActionListener
             System.out.println("End button was pressed");
     }
 
+    public void startGame(){
+        //Custom button text
+        Object[] options = {"Server","Client"};
+        int n = JOptionPane.showOptionDialog(null,
+                "Would you like to be the client or server?",
+                "Client Server",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options, options[0]);
+
+        if(n == JOptionPane.YES_OPTION){
+            isServer = true;
+            JOptionPane.showMessageDialog(null,new String("Aledafffffrt!!"));
+        }
+        else
+            isServer = false;
+            
+    }
     Button startButton, endButton, connectButton, turnButton;
     Button b0, b1, b2, b3, b4, b5, b6, b7, b8;
 
