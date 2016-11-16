@@ -144,11 +144,14 @@ public class Main extends Applet implements ActionListener
 
         try {
             // create socket connection to port 9999
+             
             ServerSocket accepting = new ServerSocket(9999);
-
+            JOptionPane.showMessageDialog(null,new String("Alert!!  13"));
             // wait for clients to make connections
             while(true) {
+                JOptionPane.showMessageDialog(null,new String("Alert!!  13"));
                 Socket connectionSocket = accepting.accept();
+                JOptionPane.showMessageDialog(null,new String("Alert!!  13"));
                 BufferedReader clientIn = new BufferedReader(
                         new InputStreamReader(connectionSocket.getInputStream()));
 
@@ -159,7 +162,9 @@ public class Main extends Applet implements ActionListener
                 clientMessage = clientIn.readLine();
                 JOptionPane.showMessageDialog(null,"Got the message: " + clientMessage);
                 serverReply = "Ack for client at " + connectionSocket.getInetAddress() + ": " + clientMessage.toUpperCase() + "\n";
-
+                
+                
+                JOptionPane.showMessageDialog(null,new String("Alert!!  13"));
                 // send client reply 
                 clientOut.writeBytes(serverReply);
                 connectionSocket.close();
@@ -167,7 +172,7 @@ public class Main extends Applet implements ActionListener
         }
         catch (Exception e) {
             
-            JOptionPane.showMessageDialog(null,e.toString() + "\nAn error occurred while creating server socket or reading/writing data to/from client.");
+            JOptionPane.showMessageDialog(null,e.toString() + "\n" +"\nAn error occurred while creating server socket or reading/writing data to/from client.");
             System.out.println("An error occurred while creating server socket or reading/writing data to/from client.");
         }
     }
